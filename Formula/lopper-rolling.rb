@@ -5,8 +5,9 @@ class LopperRolling < Formula
   sha256 "e454bfa8f5b67b6a95bb800d6474edebec36e36b381134b4efe839d7ef48efba"
   license "MIT"
 
-  depends_on "go" => :build
   keg_only :versioned_formula
+  depends_on "go" => :build
+  conflicts_with "lopper", because: "both install the lopper executable"
 
   def install
     system "go", "build", *std_go_args(output: bin/"lopper"), "./cmd/lopper"
