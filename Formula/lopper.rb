@@ -12,6 +12,6 @@ class Lopper < Formula
   end
 
   test do
-    assert_match "Lopper", shell_output("#{bin}/lopper --help")
+    assert_match "Usage:", shell_output("#{bin}/lopper --help")
   end
 end
