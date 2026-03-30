@@ -1,8 +1,8 @@
 class LopperRolling < Formula
   desc "Local-first CLI/TUI for measuring dependency surface area"
   homepage "https://github.com/ben-ranford/lopper"
-  url "https://github.com/ben-ranford/lopper/archive/refs/tags/rolling-20260330093558-596a799.tar.gz"
-  sha256 "3885e646b7b883d2b8760d824f7cf17f08121f3b8cfebc33898e7468f0ab644f"
+  url "https://github.com/ben-ranford/lopper/archive/refs/tags/rolling-20260330095116-e7ac196.tar.gz"
+  sha256 "8978c53521a5b1601787c0ff2b8c44d99913cd7b2f3c2d2de13dff791671d2bd"
   license "MIT"
 
   keg_only :versioned_formula
@@ -16,6 +16,8 @@ class LopperRolling < Formula
       -X github.com/ben-ranford/lopper/internal/version.version=#{version}
     ]
     system "go", "build", *std_go_args(output: bin/"lopper", ldflags: ldflags.join(" ")), "./cmd/lopper"
+    system "bash", "scripts/generate-manpage.sh", "docs/man/lopper.1"
+    man1.install "docs/man/lopper.1"
   end
 
   test do
