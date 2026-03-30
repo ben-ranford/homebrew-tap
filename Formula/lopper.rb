@@ -1,18 +1,23 @@
 class Lopper < Formula
   desc "Local-first CLI/TUI for measuring dependency surface area"
   homepage "https://github.com/ben-ranford/lopper"
-  url "https://github.com/ben-ranford/lopper/archive/refs/tags/v1.2.1.tar.gz"
-  sha256 "527b9fb2e8bf6e58398816bf2dea517f7686ba9242ba0238cead998592a9339d"
+  url "https://github.com/ben-ranford/lopper/archive/refs/tags/v1.2.2.tar.gz"
+  sha256 "84482196287b0027716dd5a1cb60c857fe9534171b51d2f18561919117a239a2"
   license "MIT"
 
   depends_on "go" => :build
   conflicts_with "ben-ranford/tap/lopper-rolling", because: "both install the lopper executable"
 
   def install
-    system "go", "build", *std_go_args(output: bin/"lopper"), "./cmd/lopper"
+    ldflags = %W[
+      -s
+      -w
+      -X github.com/ben-ranford/lopper/internal/version.version=#{version}
+    ]
+    system "go", "build", *std_go_args(output: bin/"lopper", ldflags: ldflags.join(" ")), "./cmd/lopper"
   end
 
   test do
-    assert_match "Usage:", shell_output("#{bin}/lopper --help")
+    assert_match version.to_s, shell_output("#{bin}/lopper --version")
   end
 end
