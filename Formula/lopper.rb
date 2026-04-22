@@ -1,8 +1,8 @@
 class Lopper < Formula
   desc "Local-first CLI/TUI for measuring dependency surface area"
   homepage "https://github.com/ben-ranford/lopper"
-  url "https://github.com/ben-ranford/lopper/archive/refs/tags/v1.3.3.tar.gz"
-  sha256 "101e6f37553041407a6ff8f5bdda117ae5eb8338c10b09c5fe06153f319b6784"
+  url "https://github.com/ben-ranford/lopper/archive/refs/tags/v1.4.0.tar.gz"
+  sha256 "b1215b36201ea2425253424a0d600027b862892ab0dd218541c4824094800899"
   license "MIT"
 
   depends_on "go" => :build
