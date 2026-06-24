@@ -1,8 +1,8 @@
 class LopperRolling < Formula
   desc "Local-first CLI/TUI for measuring dependency surface area"
   homepage "https://github.com/ben-ranford/lopper"
-  url "https://github.com/ben-ranford/lopper/archive/refs/tags/rolling-20260624094103-f5328ae.tar.gz"
-  sha256 "a4603967037a3160aedce92a81d4fe8cc8a226a016d32f349f753cdecf678a7e"
+  url "https://github.com/ben-ranford/lopper/archive/refs/tags/rolling-20260624095244-2fcf200.tar.gz"
+  sha256 "9445cf59d7aa11f8f11cea74585af33d43fb9b4866925ffa3ad5292d74872445"
   license "MIT"
 
   keg_only :versioned_formula
