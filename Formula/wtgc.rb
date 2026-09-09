@@ -1,9 +1,9 @@
 class Wtgc < Formula
   desc "Conservative Git worktree cleanup CLI"
   homepage "https://github.com/ben-ranford/wtgc"
-  url "https://github.com/ben-ranford/wtgc/archive/58209a8a369b99dc0fd784d89297524a40feba9e.tar.gz"
-  version "1.0.0"
-  sha256 "5b11d4fd68614122810c4337ff207cf87a2718f8d2d6d0a52e5370d0edab09ad"
+  url "https://github.com/ben-ranford/wtgc/archive/7f67e54d011cba7aca93f50668eebfcc854179ad.tar.gz"
+  version "1.1.0"
+  sha256 "c7d86a2a8394dbb8711d3352b9d3c4ac2d6016130c2e703ccf430d4acabab983"
   license "MIT"
 
   depends_on "go" => :build
