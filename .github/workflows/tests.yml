@@ -37,21 +37,26 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y bubblewrap
 
+      - name: Trust checked out tap before cleanup
+        run: brew trust --tap ben-ranford/tap
+
       - run: brew test-bot --only-cleanup-before
-        env:
-          HOMEBREW_NO_REQUIRE_TAP_TRUST: 1
+
+      - name: Trust checked out tap after cleanup
+        run: brew trust --tap ben-ranford/tap
 
       - run: brew test-bot --only-setup
-        env:
-          HOMEBREW_NO_REQUIRE_TAP_TRUST: 1
+
+      - name: Run GMP cache regression tests
+        run: .github/scripts/cache-gmp-source_test.sh
+
+      - name: Cache GNU GMP source on Intel
+        if: matrix.os == 'macos-15-intel'
+        run: .github/scripts/cache-gmp-source.sh
 
       - run: brew test-bot --only-tap-syntax
-        env:
-          HOMEBREW_NO_REQUIRE_TAP_TRUST: 1
       - run: brew test-bot --only-formulae
         if: github.event_name == 'pull_request'
-        env:
-          HOMEBREW_NO_REQUIRE_TAP_TRUST: 1
 
       - name: Upload bottles as artifact
         if: always() && github.event_name == 'pull_request'
