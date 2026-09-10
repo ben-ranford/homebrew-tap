@@ -47,6 +47,13 @@ jobs:
 
       - run: brew test-bot --only-setup
 
+      - name: Run GMP cache regression tests
+        run: .github/scripts/cache-gmp-source_test.sh
+
+      - name: Cache GNU GMP source on Intel
+        if: matrix.os == 'macos-15-intel'
+        run: .github/scripts/cache-gmp-source.sh
+
       - run: brew test-bot --only-tap-syntax
       - run: brew test-bot --only-formulae
         if: github.event_name == 'pull_request'
