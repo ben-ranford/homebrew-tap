@@ -1,0 +1,61 @@
+name: Homebrew checks
+
+on:
+  workflow_call:
+    inputs:
+      os:
+        required: true
+        type: string
+      experimental:
+        default: false
+        type: boolean
+
+jobs:
+  test-bot:
+    continue-on-error: ${{ inputs.experimental }}
+    runs-on: ${{ inputs.os }}
+    permissions:
+      actions: read
+      checks: read
+      contents: read
+      pull-requests: read
+    steps:
+      - name: Set up Homebrew
+        id: set-up-homebrew
+        uses: Homebrew/actions/setup-homebrew@main
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Cache Homebrew Bundler RubyGems
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.set-up-homebrew.outputs.gems-path }}
+          key: ${{ inputs.os }}-rubygems-${{ steps.set-up-homebrew.outputs.gems-hash }}
+          restore-keys: ${{ inputs.os }}-rubygems-
+
+      - name: Install Linux sandbox dependency
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y bubblewrap
+
+      - name: Trust checked out tap before cleanup
+        run: brew trust --tap ben-ranford/tap
+
+      - run: brew test-bot --only-cleanup-before
+
+      - name: Trust checked out tap after cleanup
+        run: brew trust --tap ben-ranford/tap
+
+      - run: brew test-bot --only-setup
+
+      - run: brew test-bot --only-tap-syntax
+      - run: brew test-bot --only-formulae
+        if: github.event_name == 'pull_request'
+
+      - name: Upload bottles as artifact
+        if: always() && github.event_name == 'pull_request' && !inputs.experimental
+        uses: actions/upload-artifact@v4
+        with:
+          name: bottles_${{ inputs.os }}
+          path: '*.bottle.*'
