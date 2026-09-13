@@ -1,0 +1,26 @@
+name: brew preview test-bot
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+# Keep previews outside tests.yml so brew pr-pull can publish stable bottles
+# without waiting for preview runner availability or completion.
+jobs:
+  test-bot:
+    strategy:
+      fail-fast: false
+      matrix:
+        # GitHub currently provides macOS 27 through the Xcode 27 preview image.
+        os: [ ubuntu-26.04, xcode-27 ]
+    permissions:
+      actions: read
+      checks: read
+      contents: read
+      pull-requests: read
+    uses: ./.github/workflows/brew-check.yml
+    with:
+      os: ${{ matrix.os }}
+      experimental: true

@@ -1,0 +1,6 @@
+# Hosted preview images not yet recognized by actionlint v1.7.12.
+# https://github.com/actions/runner-images#available-images
+self-hosted-runner:
+  labels:
+    - ubuntu-26.04
+    - xcode-27
