@@ -1,6 +1,6 @@
 cask "watt" do
-  version "1.1.0"
-  sha256 "13356021d01279e35fa7f113f4627543654463ed2cd633f025ea7bdddd371337"
+  version "1.1.1"
+  sha256 "1f639fed4c852252d0b3d0ad698c7d7086a592c0c4d81a270b4a5c09c7075215"
 
   url "https://github.com/ben-ranford/watt/releases/download/v#{version}/Watt-#{version}.zip"
   name "Watt?"
