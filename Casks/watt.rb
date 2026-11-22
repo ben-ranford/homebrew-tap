@@ -12,10 +12,6 @@ cask "watt" do
 
   app "Watt.app"
 
-  postflight_steps do
-    run "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "{{appdir}}/Watt.app"]
-  end
-
   zap launchctl: "io.github.ben-ranford.watt.helper",
       trash:     [
         "/Library/Application Support/Watt",
@@ -25,9 +21,4 @@ cask "watt" do
         "~/Library/Application Support/Watt",
         "~/Library/Preferences/io.github.ben-ranford.watt.plist",
       ]
-
-  caveats <<~EOS
-    Watt is ad-hoc signed and is not notarised.
-    This cask removes the quarantine attribute so Gatekeeper does not block the first launch.
-  EOS
 end
